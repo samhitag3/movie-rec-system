@@ -7,7 +7,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/search" element={<SearchPage />} />
+        <Route path='/search'>
+          <Route path=':searchParams?' element={<SearchPage/>}/>
+        </Route>
       </Routes>
     </>
   );
