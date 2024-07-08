@@ -36,10 +36,13 @@ export default function SearchPage() {
                 
                 if (result.total_results > 0) {
                     for (const item of result.results) {
-                        processedResult.push({"title": item.name || item.original_title, "cover": `https://image.tmdb.org/t/p/original${item.poster_path}`})
+                        if ((item.name || item.original_title) && item.poster_path) {
+                            processedResult.push({"title": item.name || item.original_title, "cover": `https://image.tmdb.org/t/p/original${item.poster_path}`})
+                        }
                     }
                 }
-                setSearchResult([...searchResult, ...processedResult]);
+                console.log(result.results);
+                setSearchResult([...processedResult]);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -58,15 +61,28 @@ export default function SearchPage() {
                 <title>Searching for...</title>
             </Helmet>
             <div>
-                <input type="text" placeholder="Please Enter Title" value={searchTitle} onChange={(e) => setSearchTitle(e.target.value)} />
-                <button onClick={() => navigate(`/search/${searchTitle}`)}>Search</button>
+                <div id='SearchBlock'>
+                    <div id='logo-container'>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                    </div>
+                    <div id='input-container'>
+                        <input type="text" placeholder="Please Enter Title" spellCheck="false" value={searchTitle} onChange={(e) => setSearchTitle(e.target.value)} />
+                        <div id='submitButton' onClick={() => navigate(`/search/${searchTitle}`)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <br/>
+            <br/>
             <div id="ResultsGallery">
                 {searchResult.map((item, index) => {
                     return (
                         <div className="MovieBlock" key={`Movie${index + 1}`}>
-                            <img className="MovieCover" src={item.cover}></img>
-                            <div className="MovieTitleContainer">{item.title}</div>
+                            <div className='MoviePoster'>
+                                <img className="MovieCover" src={item.cover}></img>
+                            </div>
+                            {/* <div className="MovieTitleContainer">{item.title}</div> */}
                         </div>
                     )
                 })}
