@@ -6,7 +6,7 @@ import Profile from './pages/Profile/Profile';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 
-function App() {
+export default function App() {
   return (
     <div>
       <Header />
@@ -14,15 +14,9 @@ function App() {
         <Route path='/search'>
           <Route path=':searchParams?' element={<Search/>}/>
         </Route>
-        <Route path='/'>
-          <Route element={<Landing/>}/>
-        </Route>
-        <Route path='/profile'>
-          <Route element={<Profile/>}/>
-        </Route>
+        <Route path='/' element={<Landing/>}/>
+        <Route path='/profile' element={<Profile/>}/>
       </Routes>
     </div>
   );
 }
-
-export default App;

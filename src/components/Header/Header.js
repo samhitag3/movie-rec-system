@@ -10,15 +10,23 @@ function Header() {
         setExpanded(!expanded);
     }
 
+    // Function to handle click on menu item and close the expanded menu
+    const closeAfterClick = () => {
+        setExpanded(false); // Set expanded to false to close the menu
+    };
+
     return (
         <div className="header">
             {expanded && (
                 <div className="expanded-menu">
-                    <Link to="/search" className="menu-button">
-                        <i className="fas fa-search"></i>
-                    </Link>
-                    <Link to="/profile" className="menu-button">
+                    <Link to="/" className="menu-button" onClick={closeAfterClick}>
+                        <i className="fas fa-home"></i>
+                        </Link>
+                    <Link to="/profile" className="menu-button" onClick={closeAfterClick}>
                         <i className="fas fa-user"></i>
+                    </Link>
+                    <Link to="/search" className="menu-button" onClick={closeAfterClick}>
+                        <i className="fas fa-search"></i>
                     </Link>
                 </div>
             )}

@@ -3,6 +3,8 @@ import './Search.css'
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Movie from "../../components/Movie/Movie";
+import MockMovies from './MockMovies.json';
 
 import secret from "../../secret";
 
@@ -81,17 +83,14 @@ export default function Search() {
             </div>
             <br/>
             <br/>
-            <div id="ResultsGallery">
-                {searchResult.map((item, index) => {
-                    return (
-                        <div className="MovieBlock" key={`Movie${index + 1}`}>
-                            <div className='MoviePoster'>
-                                <img className="MovieCover" src={item.cover}></img>
-                            </div>
-                            {/* <div className="MovieTitleContainer">{item.title}</div> */}
-                        </div>
-                    )
-                })}
+            <div id="ResultsGallery" className="moviesContainer">
+                {searchResult.map((item, index) => (
+                    <Movie
+                        key={index}
+                        title={item.title}
+                        cover={item.cover}
+                    />
+                ))}
             </div>
         </HelmetProvider>
     );

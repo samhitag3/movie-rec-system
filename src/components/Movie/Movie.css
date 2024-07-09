@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    width: 200px;
+    height: 300px;
+}
+
+/* .container:hover {
+    color: rgba(255, 255, 255, 0.5);
+} */
+
+.poster {
+    background-color: blanchedalmond;
+}

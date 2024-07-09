@@ -2,13 +2,13 @@ import React from 'react';
 import './Landing.css';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
-function Landing() {
+export default function Landing() {
   return (
     <HelmetProvider>
-        <Helmet>Cinemacado</Helmet>
-        <p>hello</p>
+      <Helmet>
+        <title>Cinemacado</title>
+      </Helmet>
+      <div className="welcome">u landed this temp</div>
     </HelmetProvider>
   );
 }
-
-export default Landing;
