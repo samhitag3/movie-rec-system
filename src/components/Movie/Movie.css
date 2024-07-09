@@ -1,7 +1,5 @@
 .container {
     display: flex;
-    width: 200px;
-    height: 300px;
 }
 
 /* .container:hover {
@@ -10,4 +8,9 @@
 
 .poster {
     background-color: blanchedalmond;
+    width: 200px;
+    height: 300px;
+    overflow: hidden;
+    object-fit: cover;
+
 }
