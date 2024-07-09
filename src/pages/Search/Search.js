@@ -1,12 +1,12 @@
-import './search.css'
+import './Search.css'
 
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import secret from "../secret";
+import secret from "../../secret";
 
-export default function SearchPage() {
+export default function Search() {
     // Allows us to redirect to another path
     const navigate = useNavigate()
 
