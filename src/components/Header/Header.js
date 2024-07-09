@@ -14,10 +14,10 @@ function Header() {
         <div className="header">
             {expanded && (
                 <div className="expanded-menu">
-                    <Link to="/search" className="menu-item">
+                    <Link to="/search" className="menu-button">
                         <i className="fas fa-search"></i>
                     </Link>
-                    <Link to="/profile" className="menu-item">
+                    <Link to="/profile" className="menu-button">
                         <i className="fas fa-user"></i>
                     </Link>
                 </div>

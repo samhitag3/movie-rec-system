@@ -1,20 +1,13 @@
 import React from 'react';
-import Header from '../../components/Header/Header';
-import Search from '../Search/Search';
 import './Landing.css';
-import { Routes, Route } from 'react-router-dom';
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function Landing() {
   return (
-    <div>
-      <Header />
-      <p>hello</p>
-      <Routes>
-        <Route path='/search'>
-          <Route path=':searchParams?' element={<Search/>}/>
-        </Route>
-      </Routes>
-    </div>
+    <HelmetProvider>
+        <Helmet>Cinemacado</Helmet>
+        <p>hello</p>
+    </HelmetProvider>
   );
 }
 
