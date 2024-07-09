@@ -2,9 +2,9 @@
     display: flex;
 }
 
-/* .container:hover {
-    color: rgba(255, 255, 255, 0.5);
-} */
+.container:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
 
 .poster {
     background-color: blanchedalmond;
