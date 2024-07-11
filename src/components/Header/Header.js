@@ -28,6 +28,9 @@ function Header() {
                     <Link to="/search" className="menu-button" onClick={closeAfterClick}>
                         <i className="fas fa-search"></i>
                     </Link>
+                    <Link to="/discover" className="menu-button" onClick={closeAfterClick}>
+                        <i className="fas fa-camera-retro"></i>
+                    </Link>
                 </div>
             )}
             <button className="menu-button" onClick={toggleMenu}>

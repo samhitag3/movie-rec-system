@@ -4,7 +4,6 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Movie from "../../components/Movie/Movie";
-import MockMovies from './MockMovies.json';
 
 import secret from "../../secret";
 
