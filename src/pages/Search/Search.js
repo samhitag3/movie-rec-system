@@ -24,7 +24,7 @@ export default function Search() {
                       accept: 'application/json',
                       Authorization: `Bearer ${secret.TMDB.API_read_access_token}`
                     }
-                  };
+                };
     
                 const response = await fetch(url, options);
                 
@@ -42,7 +42,7 @@ export default function Search() {
                         }
                     }
                 }
-                console.log(result.results);
+                
                 setSearchResult([...processedResult]);
             } catch (error) {
                 console.error('Error fetching data:', error);
