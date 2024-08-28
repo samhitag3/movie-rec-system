@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+}
+
+.container:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.poster {
+    background-color: blanchedalmond;
+    width: 200px;
+    height: 300px;
+    overflow: hidden;
+    object-fit: cover;
+}
