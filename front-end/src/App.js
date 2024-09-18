@@ -4,7 +4,6 @@ import Search from './pages/Search/Search';
 import Discover from './pages/Discover/Discover';
 import Landing from './pages/Landing/Landing';
 import Profile from './pages/Profile/Profile';
-import TestingKeywords from './pages/TestingKeywords/TestingKeywords';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 
@@ -21,7 +20,6 @@ export default function App() {
         </Route>
         <Route path='/' element={<Landing/>}/>
         <Route path='/profile' element={<Profile/>}/>
-        <Route path='/testing-keywords' element={<Profile/>}/>
       </Routes>
     </div>
   );

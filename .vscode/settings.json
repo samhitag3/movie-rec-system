@@ -1,0 +1,3 @@
+{
+    "python.pythonPath": "${workspaceFolder}/back-end/venv/bin/python3.9"
+}
