@@ -31,3 +31,5 @@ yarn-error.log*
 
 # API keys and other secrets
 secret.js
+firebase.js
+sigmacado-6e35a-firebase-adminsdk-e5ovg-28011b6696.json
