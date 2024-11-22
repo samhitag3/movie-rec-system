@@ -3,6 +3,8 @@ import './Search.css'
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Movie from "../../components/Movie/Movie";
 
 import secret from "../../secret";
@@ -10,6 +12,15 @@ import secret from "../../secret";
 export default function Search() {
     // Allows us to redirect to another path
     const navigate = useNavigate()
+    const [user, setUser] = useState(null);
+    const handleAddReview = (movie) => {
+        if (user) {
+          navigate('/add-review', { state: { movie } });
+        } else {
+          // Optionally, you can redirect to login page or show a message
+          alert("Please log in to add a review");
+        }
+      };
 
     // Search up movie by calling TMDB API using search parameters
     const { searchParams } = useParams();
@@ -38,7 +49,7 @@ export default function Search() {
                 if (result.total_results > 0) {
                     for (const item of result.results) {
                         if ((item.name || item.original_title) && item.poster_path) {
-                            processedResult.push({"title": item.name || item.original_title, "cover": `https://image.tmdb.org/t/p/original${item.poster_path}`})
+                            processedResult.push({"title": item.name || item.original_title, "cover": `https://image.tmdb.org/t/p/original${item.poster_path}`, "year": item.release_date.substring(0, 4),})
                         }
                     }
                 }
@@ -49,9 +60,20 @@ export default function Search() {
             }
         }
     };
-    useEffect(() => {searchMovies()}, [searchParams]);
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+          setUser(currentUser);
+        });
+        
+        searchMovies();
+        
+        return () => unsubscribe();
+      }, [searchParams]);
 
-    useEffect(() => {console.log(searchResult)}, [searchResult]);
+    // useEffect(() => {searchMovies()}, [searchParams]);
+
+    // useEffect(() => {console.log(searchResult)}, [searchResult]);
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
@@ -88,6 +110,9 @@ export default function Search() {
                         key={index}
                         title={item.title}
                         cover={item.cover}
+                        year={item.year}
+                        user={user}
+                        onAddReview={() => handleAddReview(item)}
                     />
                 ))}
             </div>

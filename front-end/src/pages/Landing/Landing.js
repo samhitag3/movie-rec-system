@@ -1,16 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './Landing.css';
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Link } from 'react-router-dom';
+// import { UserContext } from '../../contexts/UserContext'
 
 export default function Landing() {
-  const [movies, setMovies] = useState([]);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  // const { user } = useContext(UserContext);
 
   useEffect(() => {
-    fetch('/api/movies')
-      .then(response => response.json())
-      .then(data => setMovies(data.movies))
-      .catch(error => console.error('Error fetching movies:', error));
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <HelmetProvider>
@@ -18,15 +30,21 @@ export default function Landing() {
         <title>Cinemacado</title>
       </Helmet>
       <div className="landing-page">
-        <h1>Sample Movies</h1>
-        <div className="movies-container">
-          {movies.map((movie, index) => (
-            <div key={index} className="movie">
-              <img src={movie.cover} alt={movie.title} />
-              <h3>{movie.title}</h3>
+        {user ? (
+          <div className="welcome-container">
+            <h1>Welcome to Cinemacado, {user.email}!</h1>
+            <p>Enjoy exploring movies and sharing your reviews.</p>
+          </div>
+        ) : (
+          <div className="auth-options">
+            <h1>Welcome to Cinemacado</h1>
+            <p>Please log in or sign up to continue.</p>
+            <div className="auth-buttons">
+              <Link to="/login" className="auth-button">Log In</Link>
+              <Link to="/signup" className="auth-button">Sign Up</Link>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
     </HelmetProvider>
   );
