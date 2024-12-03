@@ -1,4 +1,7 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
+import firebase_admin
+from firebase_admin import credentials, auth
 import pandas as pd
 import torch
 import pickle
@@ -45,6 +48,20 @@ def get_top_n_recommendations(i, n):
         print(movie_names[recommendations[x][1]])
 
 app = Flask(__name__)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+cred = credentials.Certificate("sigmacado-6e35a-firebase-adminsdk-e5ovg-28011b6696.json")
+firebase_admin.initialize_app(cred)
+
+@app.route("/api/verify_token", methods=['POST'])
+def verify_token():
+    token = request.json['token']
+    try:
+        decoded_token = auth.verify_id_token(token)
+        uid = decoded_token['uid']
+        return jsonify({"status": "success", "uid": uid}), 200
+    except:
+        return jsonify({"status": "error", "message": "Invalid token"}), 401
 
 # Sample data to send to the frontend
 sample_data = {
